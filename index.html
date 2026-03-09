@@ -7,8 +7,6 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 :root {
   --bg:       #070707;
@@ -31,7 +29,7 @@
   --nav-h:    70px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+html{-webkit-tap-highlight-color:transparent}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
@@ -41,11 +39,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 ::-webkit-scrollbar-thumb{background:var(--border3);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 #bg{position:fixed;inset:0;z-index:-1}
-#bg-img{position:absolute;inset:0;background-image:url('https://image2url.com/r2/default/images/1773012968189-cf4640f9-148b-4dc7-93b0-ae592a4ed632.png');background-size:cover;background-position:center;transform:scale(1.06);will-change:transform}
+#bg-img{position:absolute;inset:0;background-image:url('https://image2url.com/r2/default/images/1773012968189-cf4640f9-148b-4dc7-93b0-ae592a4ed632.png');background-size:cover;background-position:center;transform:scale(1.06)}
 #bg-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,7,7,.88) 0%,rgba(7,7,7,.62) 35%,rgba(7,7,7,.78) 65%,rgba(7,7,7,.97) 100%)}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");opacity:.5}
-nav{position:fixed;top:0;left:0;width:100%;z-index:200;height:var(--nav-h);background:rgba(7,7,7,.88);border-bottom:1px solid var(--border);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:background .3s}
-nav.scrolled{background:rgba(7,7,7,.98)}
+
+nav{position:fixed;top:0;left:0;width:100%;z-index:200;height:var(--nav-h);background:rgba(7,7,7,.95);border-bottom:1px solid var(--border);transition:background .2s}
+nav.scrolled{background:#070707}
 .nav-inner{max-width:1440px;margin:0 auto;height:100%;padding:0 2.5rem;display:flex;justify-content:space-between;align-items:center;gap:2rem}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:5px;background:linear-gradient(135deg,#fff 20%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;transition:filter .25s;flex-shrink:0}
 .logo:hover{filter:brightness(1.2)}
@@ -63,23 +61,23 @@ nav.scrolled{background:rgba(7,7,7,.98)}
 .ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;width:100%;background:rgba(7,7,7,.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:190;padding:1.5rem 2rem;flex-direction:column;transform:translateY(-8px);opacity:0;transition:transform .3s var(--ease),opacity .3s;pointer-events:none}
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;width:100%;background:#0a0a0a;border-bottom:1px solid var(--border);z-index:190;padding:1.5rem 2rem;flex-direction:column;transform:translateY(-8px);opacity:0;transition:transform .25s,opacity .25s;pointer-events:none}
 .mobile-menu.open{transform:translateY(0);opacity:1;pointer-events:all;display:flex}
 .mobile-menu a{padding:1rem 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;transition:color .2s}
 .mobile-menu a:hover{color:var(--text)}
 .mobile-menu a:last-child{border:none}
 main{margin-top:var(--nav-h);min-height:calc(100vh - var(--nav-h));position:relative;z-index:1}
 .page{display:none}
-.page.on{display:block;animation:pageIn .4s var(--ease-out) both}
-@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.page.on{display:block;animation:pageIn .2s ease both}
+@keyframes pageIn{from{opacity:0}to{opacity:1}}
 .hero{min-height:82vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem;position:relative}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--border3);padding:.4rem 1.2rem;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:1.8rem;animation:heroFade .8s .1s var(--ease-out) both}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--border3);padding:.4rem 1.2rem;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:1.8rem}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';width:18px;height:1px;background:var(--accent);opacity:.5}
-.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,11vw,10rem);letter-spacing:8px;line-height:.9;margin-bottom:1.4rem;background:linear-gradient(160deg,#fff 0%,rgba(255,255,255,.7) 45%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:heroFade .8s .25s var(--ease-out) both}
-.hero-sub{color:var(--muted);font-size:.88rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:2.8rem;animation:heroFade .8s .4s var(--ease-out) both}
-.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:heroFade .8s .55s var(--ease-out) both}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,11vw,10rem);letter-spacing:8px;line-height:.9;margin-bottom:1.4rem;background:linear-gradient(160deg,#fff 0%,rgba(255,255,255,.7) 45%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{color:var(--muted);font-size:.88rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:2.8rem}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
 @keyframes heroFade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--muted);font-size:.65rem;letter-spacing:2px;text-transform:uppercase;animation:heroFade .8s .9s var(--ease-out) both}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--muted);font-size:.65rem;letter-spacing:2px;text-transform:uppercase}
 .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollPulse 2s ease infinite}
 @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
 .featured-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:center;gap:3rem;overflow-x:auto}
@@ -93,15 +91,15 @@ main{margin-top:var(--nav-h);min-height:calc(100vh - var(--nav-h));position:rela
 .cat-hero h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:7px;line-height:1;margin-bottom:.5rem}
 .cat-hero p{color:var(--muted);font-size:.85rem;letter-spacing:1px}
 .grid{max-width:1440px;margin:0 auto;padding:1.5rem 2.5rem 4rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
-.card{background:var(--bg2);border:1px solid var(--border);overflow:hidden;cursor:pointer;position:relative;transition:transform .35s var(--ease),border-color .3s,box-shadow .35s;contain:layout style}
+.card{background:var(--bg2);border:1px solid var(--border);overflow:hidden;cursor:pointer;position:relative;transition:transform .2s,border-color .2s;contain:layout paint style;will-change:transform}
 .card-badge{position:absolute;top:1rem;left:1rem;z-index:2;background:var(--accent);color:#000;font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.3rem .7rem}
 .card-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,rgba(0,0,0,.1) 50%,transparent 100%);opacity:0;transition:opacity .35s;display:flex;align-items:flex-end;padding:1.4rem;pointer-events:none}
-.card-quick{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text);border:1px solid rgba(255,255,255,.4);padding:.5rem 1.2rem;backdrop-filter:blur(6px);transform:translateY(6px);transition:transform .3s}
+.card-quick{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text);border:1px solid rgba(255,255,255,.4);padding:.5rem 1.2rem;background:rgba(0,0,0,.5);transform:translateY(6px);transition:transform .2s}
 .card:hover .card-overlay{opacity:1}
 .card:hover .card-quick{transform:translateY(0)}
-.card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.card:hover{transform:translateY(-4px);border-color:var(--border2)}
 .card-img-wrap{overflow:hidden}
-.card img{width:100%;height:310px;object-fit:cover;transition:transform .5s var(--ease);will-change:transform}
+.card img{width:100%;height:310px;object-fit:cover;transition:transform .3s}
 .card:hover img{transform:scale(1.06)}
 .card-info{padding:1.2rem 1.3rem 1.4rem}
 .card-cat{font-size:.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:.35rem;font-weight:600}
@@ -110,10 +108,9 @@ main{margin-top:var(--nav-h);min-height:calc(100vh - var(--nav-h));position:rela
 .card-price{font-size:1.25rem;font-weight:700;color:var(--accent)}
 .card-sizes{font-size:.65rem;color:var(--muted);letter-spacing:1px}
 .btn{position:relative;overflow:hidden;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;transition:all .3s var(--ease);display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-size:.82rem}
-.btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .5s}
-.btn:hover::after{left:100%}
+
 .btn-primary{background:var(--accent);color:#000;padding:.9rem 2.2rem}
-.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 10px 36px rgba(200,169,110,.3)}
+.btn-primary:hover{background:var(--accent2)}
 .btn-outline{background:transparent;color:var(--text);border:1.5px solid rgba(255,255,255,.25);padding:.9rem 2.2rem}
 .btn-outline:hover{border-color:var(--text);background:rgba(255,255,255,.05)}
 .btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border2);padding:.85rem 1.8rem}
@@ -145,212 +142,182 @@ main{margin-top:var(--nav-h);min-height:calc(100vh - var(--nav-h));position:rela
 .stock-info{margin-top:1.5rem;font-size:.72rem;color:var(--muted);letter-spacing:1px;display:flex;align-items:center;gap:.5rem}
 .stock-dot{width:6px;height:6px;border-radius:50%;background:var(--success);flex-shrink:0}
 .stock-dot.low{background:#e0a855}
-#cartPage{max-width:1120px;margin:0 auto;padding:3rem 2.5rem}
-.cart-grid{display:grid;grid-template-columns:1fr 310px;gap:2rem}
-.cart-list{display:flex;flex-direction:column;gap:.7rem}
-.cart-item{background:var(--bg2);border:1px solid var(--border);padding:1.2rem 1.4rem;display:grid;grid-template-columns:76px 1fr auto;gap:1.2rem;align-items:center;transition:border-color .2s}
-.cart-item:hover{border-color:var(--border2)}
-.cart-item img{width:76px;height:76px;object-fit:cover;border:1px solid var(--border)}
-.ci-name{font-weight:700;font-size:.92rem;margin-bottom:.2rem}
-.ci-size{color:var(--muted);font-size:.75rem;letter-spacing:.5px}
-.ci-right{display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
-.qty{display:flex;align-items:center;gap:.35rem}
-.qty-btn{width:26px;height:26px;border:1px solid var(--border2);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .15s}
-.qty-btn:hover{background:var(--accent);border-color:var(--accent);color:#000}
-.qty-val{font-size:.88rem;font-weight:600;min-width:18px;text-align:center}
-.ci-price{font-size:1.05rem;font-weight:700;color:var(--accent)}
-.rm-btn{color:var(--border3);font-size:1.1rem;transition:color .2s;line-height:1}
+/* ═══ CART PAGE ═══ */
+#cartPage{max-width:1200px;margin:0 auto;padding:3rem 2.5rem}
+.cart-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.5rem}
+.cart-header h2{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:5px}
+.cart-header h2 span{color:var(--accent)}
+.cart-item-count{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;padding:.3rem .8rem;border:1px solid var(--border2);border-radius:2px}
+.cart-grid{display:grid;grid-template-columns:1fr 360px;gap:2.5rem;align-items:start}
+.cart-list{display:flex;flex-direction:column;gap:0}
+
+/* Cart item — bigger, more editorial */
+.cart-item{display:grid;grid-template-columns:100px 1fr auto;gap:1.6rem;align-items:center;padding:1.6rem 0;border-bottom:1px solid var(--border);transition:background .15s;position:relative}
+.cart-item:first-child{border-top:1px solid var(--border)}
+.cart-item::before{content:'';position:absolute;left:-1.5rem;top:0;bottom:0;width:3px;background:var(--accent);opacity:0;transition:opacity .2s}
+.cart-item:hover::before{opacity:1}
+.cart-item img{width:100px;height:100px;object-fit:cover;border:1px solid var(--border2)}
+.ci-meta{display:flex;flex-direction:column;gap:.3rem}
+.ci-name{font-weight:700;font-size:1rem;letter-spacing:.3px;line-height:1.2}
+.ci-badges{display:flex;gap:.5rem;align-items:center;margin-top:.15rem}
+.ci-size{font-size:.68rem;color:#000;background:var(--accent);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.2rem .55rem}
+.ci-unit{font-size:.75rem;color:var(--muted)}
+.ci-controls{display:flex;flex-direction:column;align-items:flex-end;gap:.8rem}
+.qty{display:flex;align-items:center;border:1px solid var(--border2);overflow:hidden}
+.qty-btn{width:32px;height:32px;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .15s;background:transparent;border:none}
+.qty-btn:hover{background:var(--accent);color:#000}
+.qty-val{font-size:.88rem;font-weight:700;min-width:30px;text-align:center;border-left:1px solid var(--border2);border-right:1px solid var(--border2);height:32px;display:flex;align-items:center;justify-content:center}
+.ci-price{font-size:1.1rem;font-weight:700;color:var(--accent)}
+.rm-btn{color:var(--border3);font-size:.8rem;transition:color .2s;letter-spacing:1px;text-transform:uppercase;font-weight:600;font-family:'DM Sans',sans-serif;border:none;background:none;cursor:pointer;padding:.2rem 0}
 .rm-btn:hover{color:var(--danger)}
-.cart-box{background:var(--bg2);border:1px solid var(--border);padding:1.8rem;position:sticky;top:calc(var(--nav-h) + 1.5rem);height:fit-content}
-.cart-box-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--muted);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
-.sum-row{display:flex;justify-content:space-between;align-items:center;padding:.55rem 0;font-size:.87rem;color:var(--muted)}
+
+/* Cart summary box */
+.cart-box{background:var(--bg2);border:1px solid var(--border);position:sticky;top:calc(var(--nav-h) + 1.5rem);height:fit-content;overflow:hidden}
+.cart-box-top{padding:1.8rem 1.8rem 1.2rem}
+.cart-box-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--muted);margin-bottom:1.4rem}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;font-size:.85rem;color:var(--muted)}
 .sum-row span:last-child{color:var(--text);font-weight:600}
-.sum-divider{height:1px;background:var(--border);margin:.6rem 0}
-.sum-total{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0 0;font-size:1.1rem;font-weight:700}
-.sum-total span:last-child{color:var(--accent);font-size:1.4rem}
-.empty{text-align:center;padding:5rem 2rem;color:var(--muted)}
-.empty-icon{font-size:3rem;display:block;margin-bottom:1rem;opacity:.15}
-.empty p{font-size:.9rem;margin-bottom:1.5rem}
-#checkoutPage{max-width:1120px;margin:0 auto;padding:3rem 2.5rem}
-.checkout-progress{display:flex;align-items:center;margin-bottom:2.5rem;max-width:400px}
-.prog-step{display:flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase}
-.prog-num{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:.65rem;transition:all .3s;flex-shrink:0}
+.sum-divider{height:1px;background:var(--border);margin:.4rem 0}
+.sum-total{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0 0;font-size:1rem;font-weight:700}
+.sum-total span:last-child{color:var(--accent);font-size:1.5rem}
+.cart-box-ctas{padding:1.4rem 1.8rem 1.8rem;display:flex;flex-direction:column;gap:.6rem;border-top:1px solid var(--border)}
+.cart-promo{display:flex;gap:.5rem;margin-bottom:.4rem}
+.cart-promo input{flex:1;background:rgba(255,255,255,.03);border:1px solid var(--border2);color:var(--text);padding:.7rem .9rem;font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.cart-promo input:focus{border-color:var(--accent)}
+.cart-promo input::placeholder{color:var(--border3)}
+.cart-promo button{background:var(--border2);color:var(--muted);border:none;padding:.7rem 1rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.cart-promo button:hover{background:var(--border3);color:var(--text)}
+.secure-note{display:flex;align-items:center;gap:.5rem;font-size:.68rem;color:var(--muted);justify-content:center;margin-top:.2rem}
+.empty{text-align:center;padding:6rem 2rem;color:var(--muted)}
+.empty-icon{font-size:3.5rem;display:block;margin-bottom:1.2rem;opacity:.12}
+.empty p{font-size:.9rem;margin-bottom:2rem;line-height:1.8}
+/* ═══ CHECKOUT PAGE ═══ */
+#checkoutPage{max-width:1200px;margin:0 auto;padding:3rem 2.5rem}
+.checkout-progress{display:flex;align-items:center;margin-bottom:2.8rem;max-width:460px}
+.prog-step{display:flex;align-items:center;gap:.6rem;font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.prog-num{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:.65rem;transition:all .3s;flex-shrink:0}
 .prog-step.done .prog-num{background:var(--accent);border-color:var(--accent);color:#000}
-.prog-step.active .prog-num{border-color:var(--accent);color:var(--accent)}
+.prog-step.active .prog-num{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 3px rgba(200,169,110,.12)}
 .prog-label{color:var(--muted);transition:color .3s}
 .prog-step.active .prog-label,.prog-step.done .prog-label{color:var(--text)}
-.prog-line{flex:1;height:1px;background:var(--border2);margin:0 .6rem;min-width:30px}
-.checkout-grid{display:grid;grid-template-columns:1fr 310px;gap:2rem}
-.form-box{background:var(--bg2);border:1px solid var(--border);padding:2.4rem}
-.form-section-title{font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin:2rem 0 1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.prog-line{flex:1;height:1px;background:linear-gradient(90deg,var(--accent) var(--p,0%),var(--border2) var(--p,0%));margin:0 .6rem;min-width:30px;transition:--p .5s}
+.prog-line.done{--p:100%}
+.checkout-grid{display:grid;grid-template-columns:1fr 340px;gap:2.5rem;align-items:start}
+.form-box{background:var(--bg2);border:1px solid var(--border);padding:2.6rem;min-width:0}
+.form-section-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin:2.2rem 0 1.4rem;padding-bottom:.6rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.7rem}
 .form-section-title:first-child{margin-top:0}
-.field{margin-bottom:1rem;position:relative}
-.field label{display:block;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:.45rem;transition:color .2s}
+.form-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.field{margin-bottom:1.1rem;position:relative}
+.field label{display:block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:.5rem;transition:color .2s}
 .field:focus-within label{color:var(--accent)}
-.field input,.field select{width:100%;background:rgba(255,255,255,.025);border:1px solid var(--border2);color:var(--text);padding:.85rem 1rem;font-size:.9rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
+.field input,.field select{width:100%;background:rgba(255,255,255,.025);border:1px solid var(--border2);color:var(--text);padding:.9rem 1rem;font-size:.9rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s,background .2s}
 .field input::placeholder{color:var(--border3)}
-.field input:focus,.field select:focus{border-color:var(--accent);background:rgba(200,169,110,.03);box-shadow:0 0 0 3px rgba(200,169,110,.07)}
-.field input.valid{border-color:rgba(61,184,122,.35)}
-.field-icon{position:absolute;right:1rem;bottom:.9rem;font-size:.85rem;pointer-events:none;opacity:.35;transition:opacity .2s}
-.field:focus-within .field-icon{opacity:.7}
+.field input:focus,.field select:focus{border-color:var(--accent);background:rgba(200,169,110,.03)}
+.field input.valid{border-color:rgba(61,184,122,.4)}
+.field input.valid+.field-icon::after{content:'✓';position:absolute;right:0;color:var(--success)}
+.field-icon{position:absolute;right:1rem;bottom:.95rem;font-size:.85rem;pointer-events:none;opacity:.3;transition:opacity .2s}
+.field:focus-within .field-icon{opacity:.6}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .carriers{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.5rem}
-.carrier{background:var(--bg3);border:1.5px solid var(--border);padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:all .2s;border-radius:3px}
-.carrier:hover{border-color:var(--border2)}
-.carrier.on{border-color:var(--accent);background:var(--accent-dim)}
-.carrier-left{display:flex;align-items:center;gap:.9rem}
-.carrier-icon{font-size:1.2rem}
-.carrier-name{font-weight:700;font-size:.88rem}
-.carrier-eta{font-size:.72rem;color:var(--muted);margin-top:.1rem}
-.carrier-price{font-weight:700;color:var(--accent);font-size:.92rem}
-.pay-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-bottom:1.4rem}
-.pay-tab{background:transparent;border:1.5px solid var(--border);color:var(--muted);padding:.7rem .2rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;text-align:center;border-radius:3px}
-.pay-tab:hover{border-color:var(--border3);color:var(--text)}
-.pay-tab.on{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
-.pay-panel{display:none}
-.pay-panel.on{display:block;animation:pageIn .3s var(--ease-out)}
-.mbway-box{background:rgba(0,0,0,.3);border:1px solid var(--border);padding:2rem;text-align:center;margin-bottom:1rem;border-radius:3px;position:relative;overflow:hidden}
-.mbway-box::before{content:'';position:absolute;top:-40%;left:-10%;width:120%;height:80%;background:radial-gradient(ellipse,rgba(200,169,110,.05) 0%,transparent 70%);pointer-events:none}
-.mbway-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:5px;margin:.5rem 0;color:var(--text)}
-.mbway-sub{color:var(--muted);font-size:.8rem;margin-bottom:.8rem}
-.mbway-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:8px;background:var(--accent-dim);border:1px solid rgba(200,169,110,.25);padding:.7rem 1.8rem;display:inline-block;margin:.8rem 0 .3rem;cursor:pointer;transition:all .25s;color:var(--accent)}
-.mbway-num:hover{border-color:var(--accent);background:rgba(200,169,110,.18);transform:scale(1.02)}
-.mbway-copy-hint{font-size:.68rem;color:var(--muted);letter-spacing:1px;margin-bottom:1.2rem}
-.steps{display:flex;flex-direction:column;gap:.55rem;text-align:left;margin-top:1rem}
-.step{display:flex;gap:.8rem;align-items:flex-start;font-size:.82rem;color:var(--muted)}
-.step-n{background:var(--accent);color:#000;min-width:20px;height:20px;border-radius:50%;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0}
+.carrier{background:var(--bg3);border:1.5px solid var(--border);padding:1.1rem 1.3rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:all .2s;min-width:0}
+.carrier:hover{border-color:var(--border3)}
+.carrier.on{border-color:var(--accent);background:rgba(200,169,110,.06)}
+.carrier.on .carrier-radio{background:var(--accent);border-color:var(--accent)}
+.carrier.on .carrier-radio::after{opacity:1}
+.carrier-left{display:flex;align-items:center;gap:.9rem;min-width:0;flex:1}
+.carrier-radio{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;position:relative}
+.carrier-radio::after{content:'';width:6px;height:6px;background:#000;border-radius:50%;opacity:0;transition:opacity .2s}
+.carrier-icon{font-size:1.1rem;flex-shrink:0}
+.carrier-name{font-weight:700;font-size:.88rem;white-space:nowrap}
+.carrier-eta{font-size:.7rem;color:var(--muted);margin-top:.1rem;white-space:nowrap}
+.carrier-price{font-weight:700;color:var(--accent);font-size:.95rem;flex-shrink:0;margin-left:.8rem}
+
+/* Payment methods — card style */
+.pay-methods{display:flex;flex-direction:column;gap:.6rem;margin-bottom:0}
+.pay-method{border:1.5px solid var(--border);cursor:pointer;transition:all .2s;overflow:hidden}
+.pay-method:hover{border-color:var(--border3)}
+.pay-method.on{border-color:var(--accent)}
+.pay-method-header{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem}
+.pay-method-radio{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border3);flex-shrink:0;transition:all .2s;position:relative;display:flex;align-items:center;justify-content:center}
+.pay-method.on .pay-method-radio{border-color:var(--accent);background:var(--accent)}
+.pay-method.on .pay-method-radio::after{content:'';width:6px;height:6px;background:#000;border-radius:50%}
+.pay-method-icon{font-size:1.3rem;flex-shrink:0}
+.pay-method-label{font-weight:700;font-size:.9rem;flex:1}
+.pay-method-tag{font-size:.6rem;background:var(--accent);color:#000;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px}
+.pay-method-body{padding:0 1.3rem;max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1),padding .35s}
+.pay-method.on .pay-method-body{max-height:500px;padding:0 1.3rem 1.4rem}
+
+/* MB WAY panel */
+.mbway-panel{background:rgba(0,0,0,.2);border:1px solid var(--border);padding:1.6rem;text-align:center}
+.mbway-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:5px;color:var(--text);margin-bottom:.3rem}
+.mbway-sub{color:var(--muted);font-size:.78rem;margin-bottom:1rem}
+.mbway-num{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:8px;background:var(--accent-dim);border:1px solid rgba(200,169,110,.3);padding:.65rem 1.6rem;display:inline-block;margin-bottom:.3rem;cursor:pointer;transition:all .2s;color:var(--accent)}
+.mbway-num:hover{background:rgba(200,169,110,.18);border-color:var(--accent)}
+.mbway-copy-hint{font-size:.65rem;color:var(--muted);margin-bottom:1rem}
+.steps{display:flex;flex-direction:column;gap:.5rem;text-align:left}
+.step{display:flex;gap:.8rem;align-items:flex-start;font-size:.8rem;color:var(--muted)}
+.step-n{background:var(--accent);color:#000;min-width:20px;height:20px;border-radius:50%;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0}
 .step strong{color:var(--text2)}
-.ext-box{background:rgba(0,0,0,.3);border:1px solid var(--border);padding:2.2rem;text-align:center;margin-bottom:1rem;border-radius:3px;position:relative;overflow:hidden}
-.ext-box::before{content:'';position:absolute;top:-40%;left:-10%;width:120%;height:80%;background:radial-gradient(ellipse,rgba(200,169,110,.04) 0%,transparent 70%);pointer-events:none}
-.ext-emoji{font-size:2rem;margin-bottom:.4rem}
-.ext-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:4px;margin-bottom:.6rem}
-.ext-desc{color:var(--muted);font-size:.82rem;line-height:1.75;margin-bottom:1.2rem;max-width:320px;margin-left:auto;margin-right:auto}
-.ext-amount{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--accent);letter-spacing:2px;padding:.5rem 1.5rem;border:1px solid rgba(200,169,110,.25);background:var(--accent-dim);display:inline-block;margin-bottom:1.4rem}
-.ext-link{display:inline-flex;align-items:center;gap:.5rem;padding:.88rem 2rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:2px;transition:all .25s;border-radius:3px}
+
+/* PayPal / Revolut panels */
+.ext-panel{background:rgba(0,0,0,.2);border:1px solid var(--border);padding:1.4rem;display:flex;align-items:center;gap:1.4rem}
+.ext-panel-left{flex:1}
+.ext-panel-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;margin-bottom:.3rem}
+.ext-panel-desc{color:var(--muted);font-size:.78rem;line-height:1.65}
+.ext-panel-amount{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--accent);margin:.6rem 0}
+.ext-panel-right{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:.7rem}
+.ext-link{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.5rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:1.5px;transition:all .2s;white-space:nowrap}
 .ext-link.paypal{background:#1a3799;color:#fff}
-.ext-link.paypal:hover{background:#2244bb;transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,55,153,.4)}
-.ext-link.revolut{background:#111;color:#fff;border:1px solid #2a2a2a}
-.ext-link.revolut:hover{background:#1a1a1a;transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.6)}
-.pay-note{font-size:.7rem;color:var(--accent);font-style:italic;letter-spacing:.5px;margin-top:.9rem;opacity:0;transition:opacity .5s}
+.ext-link.paypal:hover{background:#2244bb}
+.ext-link.revolut{background:#0a0a0a;color:#fff;border:1px solid #2a2a2a}
+.ext-link.revolut:hover{background:#1a1a1a}
+.pay-note{font-size:.7rem;color:var(--accent);font-style:italic;letter-spacing:.3px;margin-top:.8rem;opacity:0;transition:opacity .4s}
 .pay-note.show{opacity:1}
-.btn-already{margin-top:.8rem;background:transparent;border:1.5px solid var(--border2);color:var(--muted);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .4s var(--ease),transform .4s var(--ease),border-color .2s,color .2s}
+.btn-already{margin-top:1rem;background:transparent;border:1.5px solid var(--border2);color:var(--muted);opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .4s,transform .4s,border-color .2s,color .2s}
 .btn-already.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .btn-already:hover{border-color:var(--accent);color:var(--accent)}
-.status{padding:1.1rem 1.3rem;margin-top:1.2rem;display:none;font-size:.85rem;border-radius:3px;line-height:1.65}
+.status{padding:1.1rem 1.3rem;margin-top:1.2rem;display:none;font-size:.85rem;line-height:1.65}
 .status.ok{background:rgba(61,184,122,.06);border:1px solid rgba(61,184,122,.2);color:var(--success)}
 .status.err{background:rgba(217,85,85,.06);border:1px solid rgba(217,85,85,.2);color:var(--danger)}
 .status.loading{background:rgba(255,255,255,.02);border:1px solid var(--border);color:var(--muted)}
-.order-box{background:var(--bg2);border:1px solid var(--border);padding:1.8rem;position:sticky;top:calc(var(--nav-h) + 1.5rem);height:fit-content}
-.order-box-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--muted);margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
-.order-item{display:flex;gap:.9rem;padding-bottom:.9rem;margin-bottom:.9rem;border-bottom:1px solid var(--border)}
-.order-item:last-of-type{border:none;margin-bottom:0;padding-bottom:0}
-.order-item img{width:48px;height:48px;object-fit:cover;border:1px solid var(--border);flex-shrink:0}
-.oi-name{font-size:.82rem;font-weight:600;margin-bottom:.2rem}
-.oi-detail{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+
+/* Order summary sidebar */
+.order-box{background:var(--bg2);border:1px solid var(--border);position:sticky;top:calc(var(--nav-h) + 1.5rem);height:fit-content;overflow:hidden}
+.order-box-header{padding:1.4rem 1.6rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.order-box-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--muted)}
+.order-items-list{padding:1.2rem 1.6rem;display:flex;flex-direction:column;gap:0;max-height:280px;overflow-y:auto}
+.order-item{display:flex;gap:.9rem;padding:.75rem 0;border-bottom:1px solid var(--border);align-items:center}
+.order-item:first-child{padding-top:0}
+.order-item:last-of-type{border:none;padding-bottom:0}
+.order-item img{width:52px;height:52px;object-fit:cover;border:1px solid var(--border);flex-shrink:0}
+.oi-info{flex:1;min-width:0}
+.oi-name{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oi-detail{font-size:.7rem;color:var(--muted);margin-top:.15rem}
+.oi-price{font-size:.85rem;font-weight:700;color:var(--accent);flex-shrink:0}
+.order-totals{padding:1rem 1.6rem;border-top:1px solid var(--border);background:rgba(0,0,0,.2)}
+.order-sum-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;font-size:.82rem;color:var(--muted)}
+.order-sum-row span:last-child{color:var(--text);font-weight:600}
+.order-sum-divider{height:1px;background:var(--border);margin:.5rem 0}
+.order-total-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0 0;font-size:.95rem;font-weight:700}
+.order-total-row span:last-child{color:var(--accent);font-size:1.3rem}
 .page-title{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:5px;margin-bottom:2rem}
 .page-title span{color:var(--accent)}
 footer{border-top:1px solid var(--border);padding:2.5rem;text-align:center;color:var(--muted);font-size:.72rem;letter-spacing:1px;margin-top:4rem}
 footer strong{color:var(--text);letter-spacing:3px;font-family:'Bebas Neue',sans-serif;font-size:.9rem}
 
-/* ══ CTT MAP WIDGET ══ */
-#cttMapWrap{
-  display:none;margin-top:1rem;border:1px solid var(--border2);border-radius:3px;
-  overflow:hidden;animation:pageIn .35s var(--ease-out) both;
-}
-#cttMapWrap.visible{display:block}
-.ctt-map-header{
-  background:var(--bg3);border-bottom:1px solid var(--border);
-  padding:.9rem 1.2rem;display:flex;align-items:center;gap:.8rem;
-}
-.ctt-logo-wrap{
-  width:44px;height:44px;background:#e30613;border-radius:6px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  box-shadow:0 2px 8px rgba(227,6,19,.35);
-}
-.ctt-logo-wrap svg{width:32px;height:32px}
-.ctt-map-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:2px}
-.ctt-map-sub{font-size:.68rem;color:var(--muted)}
-.ctt-search-row{
-  display:flex;gap:.5rem;padding:.9rem 1.2rem;
-  background:var(--bg3);border-bottom:1px solid var(--border);
-}
-#cttSearchInput{
-  flex:1;background:rgba(255,255,255,.035);border:1px solid var(--border2);
-  color:var(--text);padding:.7rem 1rem;font-size:.84rem;
-  font-family:'DM Sans',sans-serif;outline:none;border-radius:3px;transition:border-color .2s;
-}
-#cttSearchInput::placeholder{color:var(--muted)}
-#cttSearchInput:focus{border-color:var(--accent)}
-#cttSearchBtn{
-  background:var(--accent);color:#000;border:none;padding:.7rem 1.2rem;
-  font-family:'DM Sans',sans-serif;font-weight:700;font-size:.78rem;
-  text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;border-radius:3px;
-  transition:background .2s,transform .15s;white-space:nowrap;
-}
-#cttSearchBtn:hover{background:var(--accent2);transform:translateY(-1px)}
-#cttMap{height:300px;width:100%;z-index:1}
-.ctt-list{max-height:230px;overflow-y:auto;background:var(--bg2)}
-.ctt-list::-webkit-scrollbar{width:3px}
-.ctt-list::-webkit-scrollbar-thumb{background:var(--border3)}
-.ctt-point{
-  padding:.85rem 1.2rem;border-bottom:1px solid var(--border);
-  cursor:pointer;display:flex;justify-content:space-between;
-  align-items:center;gap:1rem;transition:background .15s;
-}
-.ctt-point:hover{background:rgba(255,255,255,.025)}
-.ctt-point.selected{background:var(--accent-dim);border-left:3px solid var(--accent)}
-.ctt-point-left{display:flex;align-items:flex-start;gap:.6rem}
-.ctt-pt-icon{
-  width:28px;height:28px;background:#e30613;border-radius:4px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;
-}
-.ctt-pt-icon svg{width:18px;height:18px}
-.ctt-point-info .pt-name{font-size:.85rem;font-weight:700;margin-bottom:.18rem}
-.ctt-point-info .pt-addr{font-size:.72rem;color:var(--muted)}
-.ctt-point-info .pt-hours{font-size:.68rem;color:var(--accent);margin-top:.15rem}
-.ctt-point-dist{font-size:.72rem;color:var(--muted);text-align:right;white-space:nowrap;flex-shrink:0}
-.ctt-selected-bar{
-  display:none;background:rgba(61,184,122,.06);
-  border-top:1px solid rgba(61,184,122,.2);
-  padding:.75rem 1.2rem;font-size:.78rem;color:var(--success);
-  align-items:center;gap:.5rem;
-}
-.ctt-selected-bar.visible{display:flex}
-.ctt-hint{padding:1.6rem;text-align:center;color:var(--muted);font-size:.8rem}
-/* ── Shipping distance badge ── */
-.ship-dist-badge{
-  display:none;margin-top:.6rem;padding:.55rem .9rem;border-radius:3px;
-  font-size:.75rem;font-weight:600;letter-spacing:.3px;
-  border:1px solid var(--border2);background:var(--bg3);color:var(--muted);
-  transition:all .3s;
-}
-.ship-dist-badge.loading{display:block;color:var(--muted);border-color:var(--border2)}
-.ship-dist-badge.ok{display:block;color:var(--success);border-color:rgba(61,184,122,.3);background:rgba(61,184,122,.05)}
-.ship-dist-badge.err{display:block;color:var(--accent);border-color:rgba(200,169,110,.25);background:var(--accent-dim)}
-.carrier-price-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:.2rem}
-.carrier-dynamic-hint{font-size:.62rem;color:var(--muted);letter-spacing:.5px}
 
-.ctt-err{padding:1rem 1.2rem;color:var(--danger);font-size:.78rem;text-align:center}
-.ctt-loading{padding:1.6rem;text-align:center;color:var(--muted);font-size:.8rem;display:flex;align-items:center;justify-content:center;gap:.6rem}
-.ctt-spinner{width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
-@keyframes spin{to{transform:rotate(360deg)}}
 
-/* Leaflet dark overrides */
-.leaflet-container{background:#111}
-.leaflet-tile{filter:invert(1) hue-rotate(180deg) brightness(.82) saturate(.75)}
-.leaflet-control-zoom a{background:var(--bg3)!important;color:var(--text)!important;border-color:var(--border)!important}
-.leaflet-control-zoom a:hover{background:var(--bg4)!important}
-.leaflet-popup-content-wrapper{background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:4px;box-shadow:0 8px 32px rgba(0,0,0,.7)}
-.leaflet-popup-tip{background:var(--bg3)}
-.leaflet-popup-content{font-family:'DM Sans',sans-serif;font-size:.82rem;line-height:1.6}
-.leaflet-popup-content strong{color:var(--accent)}
-.leaflet-attribution-flag{display:none!important}
-
-@media(max-width:980px){
+@media(max-width:1100px){
   .detail-grid,.cart-grid,.checkout-grid{grid-template-columns:1fr}
   .cart-box,.order-box{position:static}
   .detail-grid{gap:2.5rem}
   .section-header{flex-direction:column;align-items:flex-start;gap:.5rem}
+}
+
+@media(max-width:1100px){
+  .checkout-grid{display:flex;flex-direction:column}
+  .order-box{order:2;position:static}
+  .form-box{order:1}
 }
 @media(max-width:640px){
   .nav-links{display:none}
@@ -370,6 +337,66 @@ footer strong{color:var(--text);letter-spacing:3px;font-family:'Bebas Neue',sans
   #cttMap{height:220px}
 }
 @media(max-width:420px){.grid{grid-template-columns:1fr}}
+
+/* ── Confirmation Modal ── */
+.modal-overlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--bg2);border:1px solid var(--border2);padding:2.2rem;max-width:380px;width:100%;text-align:center;transform:translateY(16px) scale(.97);transition:transform .25s}
+.modal-overlay.open .modal{transform:translateY(0) scale(1)}
+.modal-icon{font-size:2.4rem;margin-bottom:.8rem}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px;margin-bottom:.6rem}
+.modal-sub{color:var(--muted);font-size:.85rem;line-height:1.7;margin-bottom:1.6rem}
+.modal-actions{display:flex;gap:.7rem;justify-content:center}
+
+/* ── Reviews ── */
+.reviews{margin-top:2.5rem}
+.reviews-title{font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.review{padding:1rem 0;border-bottom:1px solid var(--border)}
+.review:last-child{border:none}
+.review-header{display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem}
+.review-stars{color:var(--accent);font-size:.85rem;letter-spacing:1px}
+.review-name{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.review-date{font-size:.68rem;color:var(--muted);margin-left:auto}
+.review-text{font-size:.83rem;color:var(--text2);line-height:1.7}
+.review-verified{font-size:.62rem;color:var(--success);letter-spacing:1px;text-transform:uppercase;margin-top:.25rem}
+
+/* ── Stock urgency ── */
+.stock-bar{height:3px;background:var(--border2);margin-top:.7rem;border-radius:2px;overflow:hidden}
+.stock-bar-fill{height:100%;border-radius:2px;transition:width .5s}
+.stock-urgent{color:var(--danger)!important}
+.stock-medium{color:#e0a855!important}
+
+/* ── Trust badges ── */
+.trust-badges{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.8rem}
+.trust-badge{display:flex;align-items:center;gap:.45rem;font-size:.68rem;color:var(--muted);letter-spacing:.5px;background:var(--bg3);border:1px solid var(--border);padding:.45rem .8rem;border-radius:3px}
+.trust-badge span:first-child{font-size:.9rem}
+
+/* ── Cart "welcome back" banner ── */
+.cart-welcome{background:var(--accent-dim);border:1px solid rgba(200,169,110,.25);padding:.75rem 1.2rem;font-size:.78rem;color:var(--accent);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+
+/* ── Success page ── */
+#successPage .success-wrap{max-width:520px;margin:0 auto;text-align:center;padding:6rem 2rem}
+.success-icon{font-size:4rem;margin-bottom:1.5rem;animation:successPop .5s var(--ease-out) both}
+@keyframes successPop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:6px;margin-bottom:.8rem;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.success-sub{color:var(--muted);font-size:.88rem;line-height:1.8;margin-bottom:2.5rem}
+.success-details{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;text-align:left;margin-bottom:2rem}
+.success-row{display:flex;justify-content:space-between;padding:.4rem 0;font-size:.83rem;border-bottom:1px solid var(--border)}
+.success-row:last-child{border:none;padding-top:.8rem;font-weight:700;color:var(--accent);font-size:1rem}
+
+/* ── Floating add-to-cart on mobile ── */
+.mobile-atc{display:none;position:fixed;bottom:0;left:0;width:100%;z-index:300;padding:.9rem 1.2rem;background:#0a0a0a;border-top:1px solid var(--border2);gap:.6rem}
+@media(max-width:768px){.mobile-atc{display:flex}}
+
+/* ── Cart fly animation ── */
+.fly-dot{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:none}
+
+/* ── Shipping dist badge fix ── */
+.ship-dist-badge{display:none;margin-top:.6rem;padding:.55rem .9rem;border-radius:3px;font-size:.75rem;font-weight:600;letter-spacing:.3px;border:1px solid var(--border2);background:var(--bg3);color:var(--muted);transition:all .3s}
+.ship-dist-badge.loading{display:block;color:var(--muted);border-color:var(--border2)}
+.ship-dist-badge.ok{display:block;color:var(--success);border-color:rgba(61,184,122,.3);background:rgba(61,184,122,.05)}
+.ship-dist-badge.err{display:block;color:var(--accent);border-color:rgba(200,169,110,.25);background:var(--accent-dim)}
+.carrier-price-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:.2rem;flex-shrink:0;margin-left:.8rem}
 </style>
 </head>
 <body>
@@ -456,26 +483,42 @@ footer strong{color:var(--text);letter-spacing:3px;font-family:'Bebas Neue',sans
 
 <!-- PRODUTO -->
 <section id="productPage" class="page">
-  <div class="back-btn" onclick="history.back()">
+  <div class="back-btn" onclick="go(prevPage)">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     Voltar
   </div>
   <div class="detail-grid" id="detailInner"></div>
+  <div class="mobile-atc" id="mobileAtc">
+    <button class="btn btn-outline" style="flex:0 0 auto;padding:.9rem 1.2rem" onclick="go(prevPage)">←</button>
+    <button class="btn btn-primary btn-full" onclick="addToCart()">Adicionar ao Carrinho</button>
+  </div>
 </section>
 
 <!-- CARRINHO -->
 <section id="cartPage" class="page">
-  <h2 class="page-title">Carrinho <span>—</span></h2>
+  <div class="cart-header">
+    <h2>O teu <span>Carrinho</span></h2>
+    <span class="cart-item-count" id="cartItemCount">0 artigos</span>
+  </div>
   <div class="cart-grid">
     <div class="cart-list" id="cartList"></div>
     <div class="cart-box">
-      <div class="cart-box-title">Resumo do Pedido</div>
-      <div class="sum-row"><span>Subtotal</span><span id="sumSub">€0.00</span></div>
-      <div class="sum-row"><span>Envio</span><span id="sumShip">—</span></div>
-      <div class="sum-divider"></div>
-      <div class="sum-total"><span>Total</span><span id="sumTotal">€0.00</span></div>
-      <button class="btn btn-primary btn-pay btn-full" style="margin-top:1.6rem" onclick="go('checkout');loadCheckout()">Finalizar Compra →</button>
-      <button class="btn btn-ghost btn-full" style="margin-top:.6rem" onclick="go('home')">Continuar a comprar</button>
+      <div class="cart-box-top">
+        <div class="cart-box-title">Resumo</div>
+        <div class="sum-row"><span>Subtotal</span><span id="sumSub">€0.00</span></div>
+        <div class="sum-row"><span>Envio</span><span id="sumShip">—</span></div>
+        <div class="sum-divider"></div>
+        <div class="sum-total"><span>Total</span><span id="sumTotal">€0.00</span></div>
+      </div>
+      <div class="cart-box-ctas">
+        <div class="cart-promo">
+          <input type="text" placeholder="Código promocional">
+          <button onclick="showToast('❌ Código inválido')">Aplicar</button>
+        </div>
+        <button class="btn btn-primary btn-pay btn-full" onclick="if(!cart.length){showToast('⚠️ Adiciona produtos ao carrinho primeiro');return;}go('checkout');loadCheckout()">Finalizar Compra →</button>
+        <button class="btn btn-ghost btn-full" onclick="go('home')">← Continuar a comprar</button>
+        <div class="secure-note">🔒 Pagamento 100% seguro · Encriptação SSL</div>
+      </div>
     </div>
   </div>
   <footer><strong>NXTwear</strong><br>&copy; 2026 · Todos os direitos reservados</footer>
@@ -532,148 +575,151 @@ footer strong{color:var(--text);letter-spacing:3px;font-family:'Bebas Neue',sans
 
       <div class="form-section-title">Transportadora</div>
       <div class="carriers">
-        <div class="carrier on" data-name="CTT Expresso" data-price="5.00" data-type="home">
+        <div class="carrier on" data-name="CTT Expresso" data-price="4.00" data-type="home">
           <div class="carrier-left">
             <div class="carrier-icon">📦</div>
             <div><div class="carrier-name">CTT Expresso</div><div class="carrier-eta">2–3 dias úteis · preço por distância</div></div>
           </div>
-          <div class="carrier-price-wrap"><div class="carrier-price" id="homeCarrierPrice">€4–8</div><div class="carrier-dynamic-hint">0-50km €4 · 50-150km €6 · +150km €8</div></div>
-        </div>
-        <div class="carrier" data-name="Levantamento CTT" data-price="0.00" data-type="pickup">
-          <div class="carrier-left">
-            <div class="carrier-icon">
-              <!-- CTT Logo inline SVG -->
-              <svg width="22" height="22" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="60" height="60" rx="6" fill="#e30613"/>
-                <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="22" fill="white" letter-spacing="1">CTT</text>
-              </svg>
-            </div>
-            <div><div class="carrier-name">Levantamento CTT</div><div class="carrier-eta">Escolhe o ponto mais perto de ti · Grátis</div></div>
-          </div>
-          <div class="carrier-price">Grátis</div>
+          <div class="carrier-price-wrap"><div class="carrier-price" id="homeCarrierPrice">€4–8</div></div>
         </div>
       </div>
-
-      <!-- ═══ CTT MAP WIDGET ═══ -->
-      <div id="cttMapWrap">
-        <div class="ctt-map-header">
-          <div class="ctt-logo-wrap">
-            <!-- CTT Official Logo SVG -->
-            <svg viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="72%" dominant-baseline="middle" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="30" fill="white" letter-spacing="1">CTT</text>
-            </svg>
-          </div>
-          <div>
-            <div class="ctt-map-title">Pontos de Levantamento CTT</div>
-            <div class="ctt-map-sub">Pesquisa a tua cidade, localidade ou código postal</div>
-          </div>
-        </div>
-        <div class="ctt-search-row">
-          <input id="cttSearchInput" type="text" placeholder="Ex: Lisboa, Porto, Braga, Faro, 1000-001…" autocomplete="off">
-          <button id="cttSearchBtn" onclick="cttSearch()">🔍 Pesquisar</button>
-        </div>
-        <div id="cttMap"></div>
-        <div class="ctt-list" id="cttList">
-          <div class="ctt-hint">🗺️ Pesquisa uma localidade para ver os pontos CTT disponíveis</div>
-        </div>
-        <div class="ctt-selected-bar" id="cttSelectedBar">
-          <span>✓</span><span id="cttSelectedName">—</span>
-        </div>
-      </div>
-      <!-- ════════════════════ -->
 
       <div class="form-section-title">Método de Pagamento</div>
-      <div class="pay-tabs">
-        <button class="pay-tab on" data-panel="mbway">📱 MB WAY</button>
-        <button class="pay-tab"    data-panel="paypal">🔵 PayPal</button>
-        <button class="pay-tab"    data-panel="revolut">🔄 Revolut</button>
-      </div>
+      <div class="pay-methods" id="payMethods">
 
-      <!-- MBWAY -->
-      <div class="pay-panel on" id="panelMbway">
-        <div class="mbway-box">
-          <div style="font-size:2rem">📱</div>
-          <div class="mbway-logo">MB WAY</div>
-          <div class="mbway-sub">Transfere o valor para o número abaixo</div>
-          <div class="mbway-num" onclick="onMbwayClick()" title="Clica para copiar">934 529 538</div>
-          <div class="mbway-copy-hint">💡 Clica no número para copiar</div>
-          <div class="steps">
-            <div class="step"><div class="step-n">1</div><span>Abre a app <strong>MB WAY</strong></span></div>
-            <div class="step"><div class="step-n">2</div><span>Vai a <strong>Transferências → Enviar dinheiro</strong></span></div>
-            <div class="step"><div class="step-n">3</div><span>Insere o número <strong>934 529 538</strong> e o valor exato</span></div>
-            <div class="step"><div class="step-n">4</div><span>Confirma na app e clica em <strong>"Já Paguei"</strong> logo abaixo depois do pagamento</span></div>
+        <!-- MB WAY -->
+        <div class="pay-method on" data-panel="mbway">
+          <div class="pay-method-header">
+            <div class="pay-method-radio"></div>
+            <div class="pay-method-icon">📱</div>
+            <div class="pay-method-label">MB WAY</div>
+            <div class="pay-method-tag">Popular</div>
           </div>
-          <p class="pay-note" id="mbNote">✓ Número copiado! Após pagar na app, clica no botão abaixo ↓</p>
+          <div class="pay-method-body">
+            <div class="mbway-panel">
+              <div class="mbway-logo">MB WAY</div>
+              <div class="mbway-sub">Transfere o valor para o número abaixo</div>
+              <div class="mbway-num" onclick="onMbwayClick()" title="Clica para copiar">934 529 538</div>
+              <div class="mbway-copy-hint">💡 Clica no número para copiar</div>
+              <div class="steps">
+                <div class="step"><div class="step-n">1</div><span>Abre a app <strong>MB WAY</strong></span></div>
+                <div class="step"><div class="step-n">2</div><span>Vai a <strong>Transferências → Enviar dinheiro</strong></span></div>
+                <div class="step"><div class="step-n">3</div><span>Insere o número <strong>934 529 538</strong> e o valor exato</span></div>
+                <div class="step"><div class="step-n">4</div><span>Após pagar, clica em <strong>"Já Paguei"</strong> abaixo</span></div>
+              </div>
+              <p class="pay-note" id="mbNote"></p>
+            </div>
+            <button class="btn btn-already btn-pay btn-full" id="btnMB" onclick="openModal('MB WAY')">✓ Já Paguei</button>
+          </div>
         </div>
-        <button class="btn btn-already btn-pay btn-full" id="btnMB" onclick="submitOrder('MB WAY')">✓ Já Paguei</button>
-      </div>
 
-      <!-- PAYPAL -->
-      <div class="pay-panel" id="panelPaypal">
-        <div class="ext-box">
-          <div class="ext-emoji">🔵</div>
-          <div class="ext-name">PayPal</div>
-          <p class="ext-desc">Clica abaixo para pagares via PayPal. Após o pagamento, volta aqui e confirma o pedido.</p>
-          <div class="ext-amount" id="ppAmount">€0.00</div><br>
-          <a id="ppLink" href="https://paypal.me/DiogoPardal429" target="_blank"
-             class="ext-link paypal" onclick="return onExternalPay('pp')">
-            Pagar com PayPal →
-          </a>
-          <p class="pay-note" id="ppNote">✓ Link aberto! Após pagar, clica em "Já Paguei" abaixo ↓</p>
+        <!-- PAYPAL -->
+        <div class="pay-method" data-panel="paypal">
+          <div class="pay-method-header">
+            <div class="pay-method-radio"></div>
+            <div class="pay-method-icon">🔵</div>
+            <div class="pay-method-label">PayPal</div>
+          </div>
+          <div class="pay-method-body">
+            <div class="ext-panel">
+              <div class="ext-panel-left">
+                <div class="ext-panel-title">PayPal</div>
+                <div class="ext-panel-desc">⚠️ <strong style="color:var(--accent)">Envia como "Amigos e Familiares"</strong> para evitar taxas. Após pagar volta aqui e confirma.</div>
+                <div class="ext-panel-amount" id="ppAmount">€0.00</div>
+              </div>
+              <div class="ext-panel-right">
+                <a id="ppLink" href="https://paypal.me/DiogoPardal429" target="_blank" class="ext-link paypal" onclick="return onExternalPay('pp')">Pagar →</a>
+                <p class="pay-note" id="ppNote">✓ Link aberto!</p>
+              </div>
+            </div>
+            <button class="btn btn-already btn-pay btn-full" id="btnPP" onclick="openModal('PayPal')">✓ Já Paguei</button>
+          </div>
         </div>
-        <button class="btn btn-already btn-pay btn-full" id="btnPP" onclick="submitOrder('PayPal')">✓ Já Paguei</button>
-      </div>
 
-      <!-- REVOLUT -->
-      <div class="pay-panel" id="panelRevolut">
-        <div class="ext-box">
-          <div class="ext-emoji">🔄</div>
-          <div class="ext-name">Revolut</div>
-          <p class="ext-desc">Clica abaixo para pagares via Revolut. Após o pagamento, volta aqui e confirma o pedido.</p>
-          <div class="ext-amount" id="rvAmount">€0.00</div><br>
-          <a id="rvLink" href="https://revolut.me/pratas08" target="_blank"
-             class="ext-link revolut" onclick="return onExternalPay('rv')">
-            Pagar com Revolut →
-          </a>
-          <p class="pay-note" id="rvNote">✓ Link aberto! Após pagar, clica em "Já Paguei" abaixo ↓</p>
+        <!-- REVOLUT -->
+        <div class="pay-method" data-panel="revolut">
+          <div class="pay-method-header">
+            <div class="pay-method-radio"></div>
+            <div class="pay-method-icon">🔄</div>
+            <div class="pay-method-label">Revolut</div>
+          </div>
+          <div class="pay-method-body">
+            <div class="ext-panel">
+              <div class="ext-panel-left">
+                <div class="ext-panel-title">Revolut</div>
+                <div class="ext-panel-desc">Clica em "Pagar" para seres redirecionado. Após o pagamento, volta aqui e confirma o pedido.</div>
+                <div class="ext-panel-amount" id="rvAmount">€0.00</div>
+              </div>
+              <div class="ext-panel-right">
+                <a id="rvLink" href="https://revolut.me/pratas08" target="_blank" class="ext-link revolut" onclick="return onExternalPay('rv')">Pagar →</a>
+                <p class="pay-note" id="rvNote">✓ Link aberto!</p>
+              </div>
+            </div>
+            <button class="btn btn-already btn-pay btn-full" id="btnRV" onclick="openModal('Revolut')">✓ Já Paguei</button>
+          </div>
         </div>
-        <button class="btn btn-already btn-pay btn-full" id="btnRV" onclick="submitOrder('Revolut')">✓ Já Paguei</button>
-      </div>
 
+      </div>
       <div class="status" id="orderStatus"></div>
     </div>
 
     <div class="order-box">
-      <div class="order-box-title">Resumo do Pedido</div>
-      <div id="orderItems"></div>
-      <div class="sum-divider" style="margin-top:.5rem"></div>
-      <div class="sum-row"><span>Envio</span><span id="orderShip">—</span></div>
-      <div class="sum-total" style="margin-top:.4rem"><span>Total</span><span id="orderTotal">€0.00</span></div>
+      <div class="order-box-header">
+        <div class="order-box-title">Resumo do Pedido</div>
+      </div>
+      <div class="order-items-list" id="orderItems"></div>
+      <div class="order-totals">
+        <div class="order-sum-row"><span>Subtotal</span><span id="orderSub">€0.00</span></div>
+        <div class="order-sum-row"><span>Envio CTT</span><span id="orderShip">—</span></div>
+        <div class="order-sum-divider"></div>
+        <div class="order-total-row"><span>Total</span><span id="orderTotal">€0.00</span></div>
+      </div>
     </div>
   </div>
   <footer><strong>NXTwear</strong><br>&copy; 2026 · Pagamento 100% seguro</footer>
 </section>
 
+
+
+<!-- SUCCESS -->
+<section id="successPage" class="page">
+  <div class="success-wrap">
+    <div class="success-icon">🎉</div>
+    <div class="success-title">Pedido Feito!</div>
+    <p class="success-sub">O teu pedido foi registado com sucesso.<br>Vais receber um email de confirmação em breve.</p>
+    <div class="success-details" id="successDetails"></div>
+    <button class="btn btn-primary" onclick="go('home')">Continuar a Comprar</button>
+  </div>
+  <footer><strong>NXTwear</strong><br>&copy; 2026 · Obrigado pela tua compra!</footer>
+</section>
+
+<!-- Confirmation Modal -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal">
+    <div class="modal-icon">🧾</div>
+    <div class="modal-title">Tens a Certeza?</div>
+    <p class="modal-sub">Confirmas que já efetuaste o pagamento?<br><small style="color:var(--danger);font-size:.78rem">⚠️ Só confirma após o pagamento ser concluído.</small></p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmOrder()">Sim, já paguei ✓</button>
+    </div>
+  </div>
+</div>
 </main>
 
 <script>
 'use strict';
-// Block horizontal trackpad swipe navigating away from page
+// Block horizontal trackpad/touch swipe from triggering browser back/forward
 window.addEventListener('wheel', function(e) {
   if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) e.preventDefault();
 }, { passive: false });
+var _tx = 0, _ty = 0;
+window.addEventListener('touchstart', function(e) { _tx = e.touches[0].clientX; _ty = e.touches[0].clientY; }, { passive: true });
 window.addEventListener('touchmove', function(e) {
-  if (e.touches.length === 1) {
-    const dx = Math.abs(e.touches[0].clientX - (_touchStartX||0));
-    const dy = Math.abs(e.touches[0].clientY - (_touchStartY||0));
-    if (dx > dy) e.preventDefault();
-  }
+  if (Math.abs(e.touches[0].clientX - _tx) > Math.abs(e.touches[0].clientY - _ty)) e.preventDefault();
 }, { passive: false });
-window.addEventListener('touchstart', function(e) {
-  _touchStartX = e.touches[0].clientX;
-  _touchStartY = e.touches[0].clientY;
-}, { passive: true });
-var _touchStartX = 0, _touchStartY = 0;
+// Seed history so first back-swipe stays inside the app
+history.replaceState({ page: 'home' }, '', location.href);
 
 const CFG = {
   emailjs:  { publicKey:'mtQ1G7EJLT3kF_g83', serviceId:'service_2s5llhc', templateId:'template_v3r0o4r' },
@@ -728,10 +774,28 @@ const PRODUCTS = [
   }
 ];
 
+
+const REVIEWS = {
+  1:[{name:'Miguel F.',stars:5,date:'Jan 2026',text:'Excelente qualidade! Chegaram em 2 dias, muito confortáveis.'},
+     {name:'Ana S.',stars:5,date:'Fev 2026',text:'Perfeitos para correr, já os uso todos os dias.'},
+     {name:'Rui M.',stars:4,date:'Mar 2026',text:'Muito boas sapatilhas, tamanho certinho.'}],
+  2:[{name:'Carlos P.',stars:5,date:'Jan 2026',text:'Algodão muito grosso e macio, super quente no inverno.'},
+     {name:'Sofia L.',stars:5,date:'Fev 2026',text:'A melhor hoodie que já comprei, vale cada cêntimo.'}],
+  3:[{name:'Joana R.',stars:5,date:'Dez 2025',text:'T-shirt básica mas de muita qualidade, já comprei 3.'},
+     {name:'Pedro A.',stars:4,date:'Jan 2026',text:'Boa qualidade, cor vibrante mesmo depois de lavar.'},
+     {name:'Marta C.',stars:5,date:'Fev 2026',text:'Melhor t-shirt que já tive, recomendo a toda a gente!'}],
+  4:[{name:'Tiago N.',stars:5,date:'Fev 2026',text:'Sapatilhas incríveis para treino, muito estáveis.'},
+     {name:'Beatriz M.',stars:4,date:'Mar 2026',text:'Muito confortáveis, já as uso no ginásio há 2 meses.'}],
+  5:[{name:'Hugo S.',stars:5,date:'Jan 2026',text:'Zip perfeito, tecido leve mas quente. Excelente.'},
+     {name:'Inês F.',stars:5,date:'Fev 2026',text:'Uso para treino e para o dia-a-dia, versátil demais.'}],
+  6:[{name:'Diogo C.',stars:5,date:'Jan 2026',text:'Edição limitada mesmo especial, artwork brutal!'},
+     {name:'Mariana T.',stars:4,date:'Fev 2026',text:'Muito original, recebi imensos elogios com ela.'}]
+};
 const CAT_LABEL = { shoes:'Sapatos', sweats:'Sweats', tshirts:'T-Shirts' };
 
 let cart       = JSON.parse(localStorage.getItem('nxt_cart') || '[]');
 let curProduct = null;
+let prevPage   = 'home';
 let curSize    = null;
 let carrier    = { name:'CTT Expresso', price:5.00 };
 
@@ -794,17 +858,13 @@ function refreshCheckoutTotals() {
   const shipLabel = carrier.price > 0 ? `€${carrier.price.toFixed(2)}` : 'Grátis';
   document.getElementById('orderShip').textContent  = shipLabel;
   document.getElementById('orderTotal').textContent = `€${total.toFixed(2)}`;
+  const subEl = document.getElementById('orderSub');
+  if (subEl) subEl.textContent = `€${sub.toFixed(2)}`;
   document.getElementById('ppAmount').textContent   = `€${total.toFixed(2)}`;
   document.getElementById('rvAmount').textContent   = `€${total.toFixed(2)}`;
   document.getElementById('ppLink').href = `${CFG.paypal}/${total.toFixed(2)}EUR`;
 }
 
-// CTT map state
-let cttMap       = null;
-let cttMarkers   = [];
-let cttSelected  = null;
-let cttMapInited = false;
-let cttPoints    = [];
 
 emailjs.init(CFG.emailjs.publicKey);
 document.addEventListener('DOMContentLoaded', () => {
@@ -818,9 +878,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
   }, { passive:true });
   document.getElementById('cartBtn').onclick = () => { renderCart(); go('cart'); };
-  document.getElementById('cttSearchInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') cttSearch();
-  });
+
   // Live distance-based shipping (debounced 900ms)
   ['fAddr','fCity','fZip'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
@@ -852,17 +910,18 @@ function initNav() {
 function go(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   const el = document.getElementById(page + 'Page');
-  if (el) { el.classList.add('on'); window.scrollTo({ top:0, behavior:'smooth' }); }
-  // Push state so browser back/forward stays within the app
-  if (history.state?.page !== page) {
-    history.pushState({ page }, '', '#' + page);
+  if (el) { el.classList.add('on'); window.scrollTo({ top:0 }); }
+  if ((history.state && history.state.page) !== page) {
+    history.pushState({ page: page }, '', '#' + page);
   }
 }
 window.addEventListener('popstate', function(e) {
-  const page = e.state?.page || 'home';
+  var page = (e.state && e.state.page) || 'home';
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
-  const el = document.getElementById(page + 'Page');
+  var el = document.getElementById(page + 'Page');
   if (el) { el.classList.add('on'); window.scrollTo({ top:0, behavior:'smooth' }); }
+  // Always push a new state so there is always somewhere to go back to
+  history.pushState({ page: page }, '', '#' + page);
 });
 
 function renderAllGrids() {
@@ -893,12 +952,19 @@ function productCard(p) {
 }
 
 function openProduct(id) {
+  // Save the currently visible page so back button returns there
+  const visiblePage = document.querySelector('.page.on');
+  if (visiblePage) prevPage = visiblePage.id.replace('Page','');
   curProduct = PRODUCTS.find(p => p.id === id);
   curSize    = null;
   const totalStock = Object.values(curProduct.stock).reduce((a,b) => a+b, 0);
+  const revs = (REVIEWS[curProduct.id]||[]);
+  const avgStars = revs.length ? (revs.reduce((s,r)=>s+r.stars,0)/revs.length).toFixed(1) : null;
+  const stockPct = Math.min(100, Math.round(totalStock/50*100));
+  const stockClass = totalStock<=5?'stock-urgent':totalStock<=15?'stock-medium':'';
   document.getElementById('detailInner').innerHTML = `
     <div>
-      <img class="gallery-main" id="mainImg" src="${curProduct.imgs[0]}" alt="${curProduct.name}">
+      <img class="gallery-main" id="mainImg" src="${curProduct.imgs[0]}" alt="${curProduct.name}" loading="eager">
       <div class="gallery-thumbs">
         ${curProduct.imgs.map((src,i) => `
           <img class="thumb ${i===0?'on':''}" src="${src}" onclick="swapImg('${src}',${i})" loading="lazy">
@@ -908,6 +974,7 @@ function openProduct(id) {
     <div>
       <div class="detail-tag">${CAT_LABEL[curProduct.cat]}</div>
       <div class="detail-name">${curProduct.name}</div>
+      ${avgStars ? `<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem"><span style="color:var(--accent);font-size:.9rem">${'★'.repeat(Math.round(avgStars))}${'☆'.repeat(5-Math.round(avgStars))}</span><span style="font-size:.75rem;color:var(--muted)">${avgStars} · ${revs.length} avaliações</span></div>` : ''}
       <div class="detail-price">€${curProduct.price.toFixed(2)}</div>
       <div class="detail-divider"></div>
       <p class="detail-desc">${curProduct.desc}</p>
@@ -919,17 +986,56 @@ function openProduct(id) {
             ${s}
           </button>`).join('')}
       </div>
-      <div class="detail-actions">
-        <button class="btn btn-primary" onclick="addToCart()">Adicionar ao Carrinho</button>
-        <button class="btn btn-outline" onclick="buyNow()">Comprar Agora</button>
-      </div>
       <div class="stock-info">
         <div class="stock-dot ${totalStock<=10?'low':''}"></div>
-        ${totalStock<=10 ? `Apenas ${totalStock} unidades` : 'Em stock · pronto a enviar'}
+        <span class="${stockClass}">${totalStock<=5 ? `⚠️ Só restam ${totalStock}!` : totalStock<=15 ? `Apenas ${totalStock} unidades` : 'Em stock · pronto a enviar'}</span>
       </div>
+      <div class="stock-bar"><div class="stock-bar-fill" style="width:${stockPct}%;background:${totalStock<=5?'var(--danger)':totalStock<=15?'#e0a855':'var(--success)'}"></div></div>
+      <div class="detail-actions" style="margin-top:1.8rem">
+        <button class="btn btn-primary" onclick="flyToCart(event);addToCart()">Adicionar ao Carrinho</button>
+        <button class="btn btn-outline" onclick="buyNow()">Comprar Agora</button>
+      </div>
+      <div class="trust-badges">
+        <div class="trust-badge"><span>🔒</span>Pagamento Seguro</div>
+        <div class="trust-badge"><span>📦</span>Envio CTT 2–3 dias</div>
+        <div class="trust-badge"><span>✅</span>Qualidade Garantida</div>
+      </div>
+      ${revs.length ? `
+      <div class="reviews">
+        <div class="reviews-title">Avaliações (${revs.length})</div>
+        ${revs.map(r=>`
+          <div class="review">
+            <div class="review-header">
+              <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+              <div class="review-name">${r.name}</div>
+              <div class="review-date">${r.date}</div>
+            </div>
+            <div class="review-text">${r.text}</div>
+            <div class="review-verified">✓ Compra verificada</div>
+          </div>`).join('')}
+      </div>` : ''}
     </div>`;
   go('product');
 }
+
+function flyToCart(e) {
+  const dot = document.createElement('div');
+  dot.className = 'fly-dot';
+  const btn = e.currentTarget || e.target;
+  const r = btn.getBoundingClientRect();
+  const cartBtn = document.getElementById('cartBtn').getBoundingClientRect();
+  dot.style.cssText = `left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;`;
+  document.body.appendChild(dot);
+  requestAnimationFrame(() => {
+    dot.style.transition = 'left .5s cubic-bezier(.4,0,.2,1),top .5s cubic-bezier(.4,0,.2,1),opacity .4s .3s,transform .5s';
+    dot.style.left = (cartBtn.left+cartBtn.width/2) + 'px';
+    dot.style.top  = (cartBtn.top+cartBtn.height/2) + 'px';
+    dot.style.transform = 'scale(0)';
+    dot.style.opacity = '0';
+  });
+  setTimeout(() => dot.remove(), 600);
+}
+
 function swapImg(src, i) {
   document.getElementById('mainImg').src = src;
   document.querySelectorAll('.thumb').forEach((t,j) => t.classList.toggle('on', j===i));
@@ -952,22 +1058,31 @@ function buyNow() {
 }
 function renderCart() {
   const list = document.getElementById('cartList');
+  const countEl = document.getElementById('cartItemCount');
+  const total = cart.reduce((s,i)=>s+i.qty,0);
+  if (countEl) countEl.textContent = total + (total===1?' artigo':' artigos');
   if (!cart.length) {
-    list.innerHTML = `<div class="empty"><span class="empty-icon">🛍️</span><p>O carrinho está vazio</p><button class="btn btn-outline" onclick="go('home')">Explorar Produtos</button></div>`;
+    list.innerHTML = `<div class="empty"><span class="empty-icon">🛍️</span><p>O carrinho está vazio.<br>Ainda não adicionaste nenhum produto.</p><button class="btn btn-primary" onclick="go('home')">Explorar Produtos</button></div>`;
     setCartTotals(0,0); return;
   }
   list.innerHTML = cart.map((item,i) => `
     <div class="cart-item">
       <img src="${item.img}" alt="${item.name}">
-      <div><div class="ci-name">${item.name}</div><div class="ci-size">Tamanho: ${item.size}</div></div>
-      <div class="ci-right">
+      <div class="ci-meta">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-badges">
+          <span class="ci-size">${item.size}</span>
+          <span class="ci-unit">€${item.price.toFixed(2)} / un</span>
+        </div>
+        <button class="rm-btn" onclick="removeItem(${i})">Remover</button>
+      </div>
+      <div class="ci-controls">
         <div class="qty">
           <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
           <span class="qty-val">${item.qty}</span>
           <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
         </div>
         <div class="ci-price">€${(item.price*item.qty).toFixed(2)}</div>
-        <button class="rm-btn" onclick="removeItem(${i})">×</button>
       </div>
     </div>`).join('');
   const sub = cart.reduce((s,i) => s+i.price*i.qty, 0);
@@ -1006,12 +1121,15 @@ function loadCheckout() {
   document.getElementById('orderItems').innerHTML = cart.map(item => `
     <div class="order-item">
       <img src="${item.img}" alt="${item.name}">
-      <div>
+      <div class="oi-info">
         <div class="oi-name">${item.name}</div>
-        <div class="oi-detail">Tamanho: ${item.size} · Qtd: ${item.qty}</div>
-        <div class="oi-detail" style="color:var(--accent);font-weight:600;margin-top:.2rem">€${(item.price*item.qty).toFixed(2)}</div>
+        <div class="oi-detail">Tam: ${item.size} · Qtd: ${item.qty}</div>
       </div>
+      <div class="oi-price">€${(item.price*item.qty).toFixed(2)}</div>
     </div>`).join('');
+  const subAmt = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const subEl = document.getElementById('orderSub');
+  if (subEl) subEl.textContent = `€${subAmt.toFixed(2)}`;
 
   const shipLabel = carrier.price>0 ? `€${carrier.price.toFixed(2)}` : 'Grátis';
   document.getElementById('orderShip').textContent  = shipLabel;
@@ -1028,247 +1146,16 @@ function initCarriers() {
     el.addEventListener('click', () => {
       document.querySelectorAll('.carrier').forEach(c=>c.classList.remove('on'));
       el.classList.add('on');
-      const isPickupNow = el.dataset.type === 'pickup';
-      carrier = { name:el.dataset.name, price: isPickupNow ? 0 : carrier.price || 4.00 };
-      const isPickup = el.dataset.type === 'pickup';
-      togglePickupFields(isPickup);
+      carrier = { name:el.dataset.name, price: carrier.price || 4.00 };
+      togglePickupFields(false);
       loadCheckout();
     });
   });
 }
 
-/* ════ CTT MAP ════ */
-function togglePickupFields(isPickup) {
-  document.getElementById('fieldAddr').style.display    = isPickup ? 'none' : '';
-  document.getElementById('fieldCityZip').style.display = isPickup ? 'none' : '';
-  const wrap = document.getElementById('cttMapWrap');
-  if (isPickup) {
-    wrap.classList.add('visible');
-    initCttMap();
-  } else {
-    wrap.classList.remove('visible');
-  }
-}
+function togglePickupFields(isPickup) {}
 
-function initCttMap() {
-  if (cttMapInited) {
-    setTimeout(() => { if (cttMap) cttMap.invalidateSize(); }, 120);
-    return;
-  }
-  cttMapInited = true;
-  cttMap = L.map('cttMap', { zoomControl:true, scrollWheelZoom:false })
-    .setView([39.6, -8.0], 7);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution:'© <a href="https://openstreetmap.org">OSM</a>',
-    maxZoom:19
-  }).addTo(cttMap);
-}
 
-// CTT logo SVG for markers
-const CTT_MARKER_HTML = `
-  <div style="
-    width:36px;height:36px;background:#e30613;border:2.5px solid #fff;
-    border-radius:50%;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 3px 12px rgba(0,0,0,.6);font-family:Arial Black,Arial,sans-serif;
-    font-weight:900;font-size:8px;color:#fff;letter-spacing:.5px;
-  ">CTT</div>`;
-
-async function cttSearch() {
-  const q = document.getElementById('cttSearchInput').value.trim();
-  if (!q) { showToast('⚠️ Escreve uma localidade ou código postal'); return; }
-
-  const list = document.getElementById('cttList');
-  list.innerHTML = '<div class="ctt-loading"><div class="ctt-spinner"></div> A localizar pontos CTT…</div>';
-
-  cttMarkers.forEach(m => cttMap.removeLayer(m));
-  cttMarkers = [];
-  cttPoints  = [];
-
-  try {
-    // ── Step 1: Geocode with Nominatim (no country restriction = worldwide) ──
-    const geoR = await fetch(
-      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1&accept-language=pt`,
-      { headers:{ 'User-Agent':'NXTwear/1.0' } }
-    );
-    const geoD = await geoR.json();
-
-    if (!geoD.length) {
-      list.innerHTML = '<div class="ctt-err">❌ Localidade não encontrada. Tenta um nome diferente ou código postal.</div>';
-      return;
-    }
-
-    const lat = parseFloat(geoD[0].lat);
-    const lon = parseFloat(geoD[0].lon);
-    cttMap.setView([lat, lon], 14);
-
-    // ── Step 2: Overpass — BROAD multi-strategy query, 20 km radius ──
-    // Strategy: cast a very wide net with many tag combinations
-    const radius = 20000;
-    const overpassQuery = `
-[out:json][timeout:30];
-(
-  node["brand"="CTT"](around:${radius},${lat},${lon});
-  node["brand"="CTT Expresso"](around:${radius},${lat},${lon});
-  node["operator"="CTT"](around:${radius},${lat},${lon});
-  node["operator"="CTT - Correios de Portugal"](around:${radius},${lat},${lon});
-  node["name"="CTT"](around:${radius},${lat},${lon});
-  node["name"="CTT Expresso"](around:${radius},${lat},${lon});
-  node["name"~"^CTT",i](around:${radius},${lat},${lon});
-  node["name"~"Correios",i](around:${radius},${lat},${lon});
-  node["amenity"="post_office"]["name"~"CTT|Correios|correio",i](around:${radius},${lat},${lon});
-  node["amenity"="post_office"]["brand"~"CTT",i](around:${radius},${lat},${lon});
-  node["shop"="post"]["name"~"CTT",i](around:${radius},${lat},${lon});
-  node["amenity"="post_office"](around:${radius},${lat},${lon});
-  way["amenity"="post_office"](around:${radius},${lat},${lon});
-  relation["amenity"="post_office"](around:${radius},${lat},${lon});
-);
-out center body;
-`.trim();
-
-    const ovR = await fetch('https://overpass-api.de/api/interpreter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'data=' + encodeURIComponent(overpassQuery)
-    });
-    const ovD = await ovR.json();
-    let pts = (ovD.elements || []).map(el => ({
-      lat: el.lat ?? el.center?.lat,
-      lon: el.lon ?? el.center?.lon,
-      tags: el.tags || {}
-    })).filter(p => p.lat && p.lon);
-
-    // ── Step 3: If still empty, try even broader — any post_office ──
-    if (!pts.length) {
-      const fallbackQ = `[out:json][timeout:25];(node["amenity"="post_office"](around:${radius},${lat},${lon});way["amenity"="post_office"](around:${radius},${lat},${lon}););out center body;`;
-      const fbR = await fetch('https://overpass-api.de/api/interpreter', {
-        method:'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body:'data='+encodeURIComponent(fallbackQ)
-      });
-      const fbD = await fbR.json();
-      pts = (fbD.elements || []).map(el => ({
-        lat: el.lat ?? el.center?.lat,
-        lon: el.lon ?? el.center?.lon,
-        tags: el.tags || {}
-      })).filter(p => p.lat && p.lon);
-    }
-
-    if (!pts.length) {
-      list.innerHTML = `<div class="ctt-err">📭 Nenhum ponto CTT/Correios encontrado num raio de 20 km.<br><small style="color:var(--muted)">Tenta uma cidade mais central ou próxima de Portugal.</small></div>`;
-      return;
-    }
-
-    // ── Step 4: Deduplicate by proximity (<40 m) ──
-    const deduped = [];
-    pts.forEach(p => {
-      const dup = deduped.find(s => Math.abs(s.lat-p.lat)<0.0004 && Math.abs(s.lon-p.lon)<0.0004);
-      if (!dup) deduped.push(p);
-    });
-
-    // ── Step 5a: Basic tag extraction ──
-    deduped.forEach((p, i) => {
-      const t = p.tags;
-      p._name  = t.name || t['name:pt'] || t.brand || t.operator || '';
-      p._addr  = [t['addr:street'], t['addr:housenumber']].filter(Boolean).join(' ') || t['addr:full'] || '';
-      p._city  = t['addr:city'] || t['addr:town'] || t['addr:village'] || t['addr:municipality'] || '';
-      p._hours = t.opening_hours || '';
-      // Distance from the searched location (lat/lon) = correct proximity
-      p._dist  = calcDist(lat, lon, p.lat, p.lon);
-      p._idx   = i;
-    });
-
-    // ── Step 5b: Reverse-geocode points that are missing name or address ──
-    const needsRev = deduped.filter(p => !p._name || !p._addr).slice(0, 8);
-    await Promise.allSettled(needsRev.map(async p => {
-      try {
-        const rr = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?lat=${p.lat}&lon=${p.lon}&format=json&zoom=18&addressdetails=1`,
-          { headers:{ 'User-Agent':'NXTwear/1.0', 'Accept-Language':'pt-PT,pt' } }
-        );
-        const rd = await rr.json();
-        if (!rd || rd.error) return;
-        const a = rd.address || {};
-        if (!p._name) p._name = a.amenity || a.shop || a.office || rd.name || 'CTT';
-        if (!p._addr) {
-          const street = [a.road || a.pedestrian || a.footway, a.house_number].filter(Boolean).join(' ');
-          p._addr = street;
-        }
-        if (!p._city) p._city = a.city || a.town || a.village || a.municipality || a.county || '';
-      } catch { /* keep empty */ }
-    }));
-
-    // Final fallback name
-    deduped.forEach(p => { if (!p._name) p._name = 'CTT / Correios'; });
-
-    deduped.sort((a,b) => a._dist - b._dist);
-    cttPoints = deduped;
-
-    // ── Step 6: Add markers with CTT logo style ──
-    const mkIcon = L.divIcon({
-      className:'',
-      html: CTT_MARKER_HTML,
-      iconSize:[36,36], iconAnchor:[18,18], popupAnchor:[0,-22]
-    });
-
-    deduped.forEach(pt => {
-      const m = L.marker([pt.lat, pt.lon], { icon:mkIcon })
-        .addTo(cttMap)
-        .bindPopup(
-          `<strong>${pt._name}</strong>` +
-          (pt._addr ? `<br><small>📍 ${pt._addr}${pt._city?', '+pt._city:''}</small>` : '') +
-          (pt._hours ? `<br><small style="color:var(--accent)">⏰ ${pt._hours}</small>` : '')
-        );
-      m.on('click', () => selectCttPoint(pt._idx));
-      cttMarkers.push(m);
-    });
-
-    // Fit map to all markers
-    if (cttMarkers.length) {
-      const group = L.featureGroup(cttMarkers);
-      cttMap.fitBounds(group.getBounds().pad(0.2));
-    }
-
-    // ── Step 7: Render list ──
-    list.innerHTML = deduped.map(pt => `
-      <div class="ctt-point" id="cttpt-${pt._idx}" onclick="selectCttPoint(${pt._idx})">
-        <div class="ctt-point-left">
-          <div class="ctt-pt-icon">
-            <svg viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="80%" dominant-baseline="middle" text-anchor="middle"
-                font-family="Arial Black,Arial,sans-serif" font-weight="900"
-                font-size="18" fill="white" letter-spacing="0.5">CTT</text>
-            </svg>
-          </div>
-          <div class="ctt-point-info">
-            <div class="pt-name">${pt._name}</div>
-            ${pt._addr ? `<div class="pt-addr">📍 ${pt._addr}${pt._city?', '+pt._city:''}</div>` : (pt._city ? `<div class="pt-addr">📍 ${pt._city}</div>` : '')}
-            ${pt._hours ? `<div class="pt-hours">⏰ ${pt._hours}</div>` : ''}
-          </div>
-        </div>
-        <div class="ctt-point-dist">${pt._dist < 1 ? Math.round(pt._dist*1000)+'m' : pt._dist.toFixed(1)+'km'}</div>
-      </div>`).join('');
-
-  } catch(err) {
-    console.error('CTT search error:', err);
-    list.innerHTML = '<div class="ctt-err">⚠️ Erro ao carregar pontos CTT. Verifica a ligação e tenta novamente.</div>';
-  }
-}
-
-function selectCttPoint(idx) {
-  const pt = cttPoints[idx];
-  if (!pt) return;
-  cttSelected = { name:pt._name, addr:pt._addr, city:pt._city };
-  document.querySelectorAll('.ctt-point').forEach(el => el.classList.remove('selected'));
-  const el = document.getElementById('cttpt-'+idx);
-  if (el) { el.classList.add('selected'); el.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
-  const bar = document.getElementById('cttSelectedBar');
-  bar.classList.add('visible');
-  document.getElementById('cttSelectedName').textContent =
-    pt._name + (pt._addr ? ' — '+pt._addr : '') + (pt._city ? ', '+pt._city : '');
-  cttMap.setView([pt.lat, pt.lon], 16);
-  cttMarkers[idx]?.openPopup();
-  showToast('✓ Ponto CTT selecionado');
-}
 
 function calcDist(la1, lo1, la2, lo2) {
   const R = 6371, d2r = Math.PI/180;
@@ -1278,12 +1165,10 @@ function calcDist(la1, lo1, la2, lo2) {
 }
 
 function initPayTabs() {
-  document.querySelectorAll('.pay-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.pay-tab').forEach(b=>b.classList.remove('on'));
-      document.querySelectorAll('.pay-panel').forEach(p=>p.classList.remove('on'));
-      btn.classList.add('on');
-      document.getElementById('panel'+cap(btn.dataset.panel)).classList.add('on');
+  document.querySelectorAll('.pay-method').forEach(card => {
+    card.querySelector('.pay-method-header').addEventListener('click', () => {
+      document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('on'));
+      card.classList.add('on');
       resetPayBtns();
     });
   });
@@ -1306,18 +1191,14 @@ function initInputRestrictions() {
 }
 
 function getFields() {
-  const isPickup = carrier.name === 'Levantamento CTT';
-  const pickupAddr = cttSelected
-    ? cttSelected.name + (cttSelected.addr ? ' — '+cttSelected.addr : '') + (cttSelected.city ? ', '+cttSelected.city : '')
-    : '';
   return {
     name:  document.getElementById('fName').value.trim(),
     email: document.getElementById('fEmail').value.trim(),
     phone: document.getElementById('fPhone').value.trim(),
-    addr:  isPickup ? pickupAddr : document.getElementById('fAddr').value.trim(),
-    city:  isPickup ? '' : document.getElementById('fCity').value.trim(),
-    zip:   isPickup ? '' : document.getElementById('fZip').value.trim(),
-    isPickup
+    addr:  document.getElementById('fAddr').value.trim(),
+    city:  document.getElementById('fCity').value.trim(),
+    zip:   document.getElementById('fZip').value.trim(),
+    isPickup: false
   };
 }
 function checkFields() {
@@ -1328,13 +1209,7 @@ function checkFields() {
     document.getElementById(id).style.borderColor = v ? '' : 'var(--danger)';
     if (!v) ok = false;
   });
-  if (f.isPickup) {
-    if (!cttSelected) {
-      showToast('⚠️ Seleciona um ponto de levantamento CTT no mapa');
-      document.getElementById('cttMapWrap').scrollIntoView({ behavior:'smooth', block:'center' });
-      return false;
-    }
-  } else {
+  {
     ['fAddr','fCity','fZip'].forEach(id => {
       const v = document.getElementById(id).value.trim();
       document.getElementById(id).style.borderColor = v ? '' : 'var(--danger)';
@@ -1351,12 +1226,25 @@ function checkFields() {
 }
 
 function onMbwayClick() {
-  if (!checkFields()) return;
   copyText(CFG.mbway, '📋 Número copiado!');
-  setTimeout(() => {
-    document.getElementById('btnMB').classList.add('visible');
-    document.getElementById('mbNote').classList.add('show');
-  }, 600);
+  // Only start timer if not already running
+  if (window._mbCopied) return;
+  window._mbCopied = true;
+  const note = document.getElementById('mbNote');
+  note.classList.add('show');
+  let secs = 45;
+  note.textContent = '⏳ Aguarda ' + secs + 's após pagares na app para confirmar…';
+  clearInterval(window._mbCountdown);
+  window._mbCountdown = setInterval(() => {
+    secs--;
+    if (secs > 0) {
+      note.textContent = '⏳ Aguarda ' + secs + 's após pagares na app para confirmar…';
+    } else {
+      clearInterval(window._mbCountdown);
+      note.textContent = '✓ Já podes confirmar o pagamento ↓';
+      document.getElementById('btnMB').classList.add('visible');
+    }
+  }, 1000);
 }
 function onExternalPay(provider) {
   if (!checkFields()) return false;
@@ -1368,15 +1256,39 @@ function onExternalPay(provider) {
   return true;
 }
 function resetPayBtns() {
+  clearTimeout(window._mbTimer);
+  clearInterval(window._mbCountdown);
+  window._mbCopied = false;
   ['btnPP','btnRV','btnMB'].forEach(id => document.getElementById(id)?.classList.remove('visible'));
   ['ppNote','rvNote','mbNote'].forEach(id => document.getElementById(id)?.classList.remove('show'));
 }
 
+
+var _pendingMethod = '';
+function openModal(method) {
+  if (!checkFields()) return;
+  _pendingMethod = method;
+  document.getElementById('confirmModal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('confirmModal').classList.remove('open');
+}
+function confirmOrder() {
+  closeModal();
+  submitOrder(_pendingMethod);
+}
+// Close modal on overlay click
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('confirmModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+});
 async function submitOrder(method) {
   if (!checkFields()) return;
   if (!cart.length) { showToast('⚠️ O carrinho está vazio'); return; }
   const f     = getFields();
   const total = getTotal();
+  const cart_snapshot = [...cart.map(i=>({...i}))];
   const date  = new Date().toLocaleString('pt-PT');
   const items = cart.map(i=>`• ${i.name} (${i.size}) ×${i.qty} — €${(i.price*i.qty).toFixed(2)}`).join('\n');
   const addrLine = f.isPickup
@@ -1407,9 +1319,17 @@ async function submitOrder(method) {
   });
 
   if (tgOk||ejOk) {
-    setStatus('ok',`✅ <strong>Pedido confirmado!</strong><br><small>Enviámos confirmação para ${f.email}. Obrigado por comprares na NXTwear! 🙏</small>`);
-    cart=[]; saveCart(); updateBadge(); cttSelected=null;
-    setTimeout(()=>go('home'), 5000);
+    // Show success page
+    cart=[]; saveCart(); updateBadge();
+    const details = document.getElementById('successDetails');
+    if (details) {
+      details.innerHTML = [
+        ...cart_snapshot.map(i=>`<div class="success-row"><span>${i.name} · ${i.size} ×${i.qty}</span><span>€${(i.price*i.qty).toFixed(2)}</span></div>`),
+        `<div class="success-row"><span>Envio ${carrier.name}</span><span>€${carrier.price.toFixed(2)}</span></div>`,
+        `<div class="success-row"><span>Total</span><span>€${total.toFixed(2)}</span></div>`
+      ].join('');
+    }
+    go('success');
   } else {
     setStatus('err','✗ Erro ao registar o pedido. Por favor contacta-nos diretamente.');
   }
